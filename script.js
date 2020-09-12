@@ -1,3 +1,5 @@
+let hue = "";
+
 const colorsMonochromeLight = [
     document.querySelector('.colors-monochrome--light__90'),
     document.querySelector('.colors-monochrome--light__80'),
@@ -14,23 +16,105 @@ const colorsMonochromeDark = [
     document.querySelector('.colors-monochrome--dark__100'),
 ]
 
-function loadColorArray(hue) {
-    let colorArrayLight = [];
-    let colorArrayDark = [];
+const colorsAnalogous = [
+    document.querySelector('.colors-analogous__90'),
+    document.querySelector('.colors-analogous__60'),
+    document.querySelector('.colors-analogous__30'),
+    document.querySelector('.colors-analogous__0'),
+]
 
+const colorsTetradic = [
+    document.querySelector('.colors-tetradic__270'),
+    document.querySelector('.colors-tetradic__180'),
+    document.querySelector('.colors-tetradic__90'),
+    document.querySelector('.colors-tetradic__0'),
+]
+
+const colorsTriadic = [
+    document.querySelector('.colors-triadic__240'),
+    document.querySelector('.colors-triadic__120'),
+    document.querySelector('.colors-triadic__0'),
+]
+
+const colorsComplementary = [
+    document.querySelector('.colors-complementary__180'),
+    document.querySelector('.colors-complementary__0'),
+]
+
+function loadLightArray() {
+    let colorArrayLight = [];
     for (let i = 0; i < 5; i++) {
         colorArrayLight.push(`hsl(${hue}, 100%, ${50 + (i * 10)}%`);
+    }
+
+    for (let i = 0; i < 5; i++) {
+        colorsMonochromeLight[i].style.backgroundColor = colorArrayLight.pop();
+    }
+}
+
+function loadDarkArray() {
+    let colorArrayDark = [];
+    for (let i = 0; i < 5; i++) {
         colorArrayDark.push(`hsl(${hue}, ${100 - (i * 20)}%, 50%`);
     }
 
-    loadColorDisplay(colorArrayLight, colorArrayDark);
+    for (let i = 0; i < 5; i++) {
+        colorsMonochromeDark[i].style.backgroundColor = colorArrayDark.pop();
+    }
 }
 
-function loadColorDisplay(light, dark) {
-    for (let i = 0; i < 5; i++) {
-        colorsMonochromeLight[i].style.backgroundColor = light.pop();
-        colorsMonochromeDark[i].style.backgroundColor = dark.pop();
+function loadAnalogousArray() {
+    let colorArrayAnalogous = [];
+    for (let i = 0; i < 4; i++) {
+        colorArrayAnalogous.push(`hsl(${hue + (i * 30)}, 100%, 50%`);
     }
+
+    for (let i = 0; i < 4; i++) {
+        colorsAnalogous[i].style.backgroundColor = colorArrayAnalogous.pop();
+    }
+}
+
+function loadTetradicArray() {
+    let colorArrayTetradic = [];
+    for (let i = 0; i < 4; i++) {
+        colorArrayTetradic.push(`hsl(${hue + (i * 90)}, 100%, 50%`);
+    }
+
+    for (let i = 0; i < 4; i++) {
+        colorsTetradic[i].style.backgroundColor = colorArrayTetradic.pop();
+    }
+}
+
+function loadTriadicArray() {
+    let colorArrayTriadic = [];
+    for (let i = 0; i < 3; i++) {
+        colorArrayTriadic.push(`hsl(${hue + (i * 120)}, 100%, 50%`);
+    }
+
+    for (let i = 0; i < 3; i++) {
+        colorsTriadic[i].style.backgroundColor = colorArrayTriadic.pop();
+    }
+}
+
+function loadComplementaryArray() {
+    let colorArrayComplementary = [];
+    for (let i = 0; i < 2; i++) {
+        colorArrayComplementary.push(`hsl(${hue + (i * 120)}, 100%, 50%`);
+    }
+
+    for (let i = 0; i < 2; i++) {
+        colorsComplementary[i].style.backgroundColor = colorArrayComplementary.pop();
+    }
+}
+
+function setColor(colorValue) {
+    hue = colorValue;
+    loadLightArray();
+    loadDarkArray();
+    loadAnalogousArray();
+    loadTetradicArray();
+    loadTriadicArray();
+    loadComplementaryArray();
 }
 
 function HSLToHex(hsl) {
